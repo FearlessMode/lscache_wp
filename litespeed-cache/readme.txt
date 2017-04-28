@@ -2,8 +2,8 @@
 Contributors: LiteSpeedTech
 Tags: caching, cache, performance, optimization, wp-cache, busting, wordpress cache busting, litespeed, http2, varnish, widget, litespeed web server, lsws, availability, pagespeed, woocommerce, bbpress, nextgengallery, wp-polls, wptouch, customization, plugin, rewrite, scalability, speed, multisite, cpanel, openlitespeed, ols, google, optimize, wp-super-cache, w3total cache, w3totalcache, w3 total cache, wp super cache, wp rocket
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.0.16
+Tested up to: 4.7.4
+Stable tag: 1.0.15
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -68,6 +68,7 @@ Additional plugin features:
 * [Autoptimize](https://wordpress.org/plugins/autoptimize/)
 * [Better WP Minify](https://wordpress.org/plugins/bwp-minify/)
 * [WP Touch](https://wordpress.org/plugins/wptouch/)
+* [Theme My Login](https://wordpress.org/plugins/theme-my-login/)
 * [wpForo](https://wordpress.org/plugins/wpforo/)
 
 = Known Uncompatible Plugins =
@@ -312,6 +313,23 @@ These hook points are provided for hooking into the cache's run time functionali
 6. Cache Hit Example
 
 == Changelog ==
+
+= 1.0.15 - April 20 2017 =
+* [NEW] Added Purge Pages and Purge Recent Posts Widget pages options.
+* [NEW] Added wp-cli command for setting and getting options.
+* [NEW] Added an import/export options cli command.
+* [NEW] Added wpForo integration.
+* [NEW] Added Theme My Login integration.
+* [UPDATE] Purge adjacent posts when publish a new post.
+* [UPDATE] Change environment report file to .php and increase security.
+* [UPDATE] Added new purgeby option to wp-cli.
+* [UPDATE] Remove nag for multiple sites.
+* [UPDATE] Only inject LiteSpeed javascripts in LiteSpeed pages.
+* [REFACTOR] Properly check for zero in ttl settings.
+* [BUGFIX] Fixed the 404 issue that can be caused by some certain plugins when save the settings.
+* [BUGFIX] Fixed mu-plugin compatibility.
+* [BUGFIX] Fixed problem with creating zip backup.
+* [BUGFIX] Fixed conflict with jetpack.
 
 = 1.0.14.1 - January 31 2017 =
 * [UPDATE] Removed Freemius integration due to feedback.

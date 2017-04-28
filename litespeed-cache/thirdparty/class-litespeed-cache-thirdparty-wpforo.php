@@ -35,6 +35,7 @@ class LiteSpeed_Cache_ThirdParty_WpForo
 	 * Purge tags based on hooks
 	 */
 	public static function purge_tag(){
+		if (!defined('WPFORO_VERSION')) return;
 		if(!empty($_POST)){
 			add_action('wpforo_after_add_topic', 'LiteSpeed_Cache_ThirdParty_WpForo::purge_tag_topic_add');
 			add_action('wpforo_start_edit_topic', 'LiteSpeed_Cache_ThirdParty_WpForo::purge_tag_topic_update');
@@ -145,6 +146,4 @@ class LiteSpeed_Cache_ThirdParty_WpForo
 }
 
 add_action('litespeed_cache_detect_thirdparty', 'LiteSpeed_Cache_ThirdParty_WpForo::detect');
-if (defined('WPFORO_VERSION')) {
-	add_action('wpforo_actions', 'LiteSpeed_Cache_ThirdParty_WpForo::purge_tag');
-}
+add_action('wpforo_actions', 'LiteSpeed_Cache_ThirdParty_WpForo::purge_tag');
