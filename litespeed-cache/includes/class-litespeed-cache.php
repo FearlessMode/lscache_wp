@@ -139,6 +139,7 @@ class LiteSpeed_Cache extends LiteSpeed{
 		//TODO: Uncomment this when esi is implemented.
 //		add_action('init', array($this, 'check_admin_bar'), 0);
 //		$this->add_actions_esi();
+		add_action('shutdown', array($this, 'send_headers'), 0);
 
 		$bad_cookies = $this->setup_cookies();
 
@@ -146,13 +147,16 @@ class LiteSpeed_Cache extends LiteSpeed{
 		// 	return;
 		// }
 
+		// do litespeed actions
+		$this->proceed_action();
+
 		if (!$bad_cookies && !$this->check_user_logged_in() && !$this->check_cookies()) {
 			$this->load_logged_out_actions();
 		}
 
 		// Load public hooks
 		$this->load_public_actions();
-		$this->proceed_action();
+
 		if (LiteSpeed_Cache_Router::is_ajax()) {
 			add_action('init', array($this, 'detect'), 4);
 		}
@@ -271,7 +275,7 @@ class LiteSpeed_Cache extends LiteSpeed{
 		$cache_res = $this->config->get_option(LiteSpeed_Cache_Config::OPID_CACHE_RES);
 		if ($cache_res) {
 			$uri = esc_url($_SERVER["REQUEST_URI"]);
-			$pattern = '!' . LiteSpeed_Cache_Admin_Rules::$RW_PATTERN_RES . '!';
+			$pattern = '!' . LiteSpeed_Cache_Admin_Rules::RW_PATTERN_RES . '!';
 			if (preg_match($pattern, $uri)) {
 				add_action('wp_loaded', array( $this, 'check_cacheable' ), 5) ;
 			}
@@ -299,10 +303,8 @@ class LiteSpeed_Cache extends LiteSpeed{
 			add_action($event, array( $this, 'purge_post' ), 10, 2) ;
 		}
 
-		add_action('wp_update_comment_count',
-			array($this, 'purge_feeds'));
+		add_action('wp_update_comment_count', array($this, 'purge_feeds'));
 
-		add_action('shutdown', array($this, 'send_headers'), 0);
 		// purge_single_post will only purge that post by tag
 		add_action('lscwp_purge_single_post', array($this, 'purge_single_post'));
 
@@ -366,7 +368,7 @@ class LiteSpeed_Cache extends LiteSpeed{
 	 * @since 1.0.16
 	 */
 	public static function uninstall_litespeed_cache(){
-		LiteSpeed_Cache_Admin_Rules::clear_rules();
+		LiteSpeed_Cache_Admin_Rules::get_instance()->clear_rules();
 		delete_option(LiteSpeed_Cache_Config::OPTION_NAME);
 		if (is_multisite()) {
 			delete_site_option(LiteSpeed_Cache_Config::OPTION_NAME);
@@ -502,7 +504,7 @@ class LiteSpeed_Cache extends LiteSpeed{
 		if (!LiteSpeed_Cache_Config::wp_cache_var_setter(false)) {
 			error_log('In wp-config.php: WP_CACHE could not be set to false during deactivation!') ;
 		}
-		LiteSpeed_Cache_Admin_Rules::clear_rules();
+		LiteSpeed_Cache_Admin_Rules::get_instance()->clear_rules();
 		// delete in case it's not deleted prior to deactivation.
 		delete_transient(self::WHM_TRANSIENT);
 	}
@@ -932,6 +934,9 @@ class LiteSpeed_Cache extends LiteSpeed{
 				return;
 		}
 		array_walk($list, Array($this, $cb));
+
+		// for redirection
+		$_GET[LiteSpeed_Cache_Admin_Display::PURGEBYOPT_SELECT] = $sel;
 	}
 
 	/**

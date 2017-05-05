@@ -452,8 +452,9 @@ class LiteSpeed_Cache_Config extends LiteSpeed{
 	 * @access public
 	 * @param array $default_options The default options.
 	 * @param array $options The current options.
+	 * @return array New options.
 	 */
-	public static function option_diff($default_options, &$options){
+	public static function option_diff($default_options, $options){
 		$dkeys = array_keys($default_options);
 		$keys = array_keys($options);
 		$newkeys = array_diff($dkeys, $keys);
@@ -476,6 +477,7 @@ class LiteSpeed_Cache_Config extends LiteSpeed{
 		if ($options[self::OPID_MOBILEVIEW_ENABLED] === false) {
 			$options[self::ID_MOBILEVIEW_LIST] = false;
 		}
+		return $options;
 	}
 
 	/**
@@ -494,7 +496,7 @@ class LiteSpeed_Cache_Config extends LiteSpeed{
 			return;
 		}
 
-		self::option_diff($default_options, $this->options);
+		$this->options = self::option_diff($default_options, $this->options);
 
 //		if ((!is_multisite()) || (is_network_admin())) {
 //			$this->options[self::OPID_LOGIN_COOKIE]
@@ -522,7 +524,7 @@ class LiteSpeed_Cache_Config extends LiteSpeed{
 			return;
 		}
 
-		self::option_diff($default_options, $options);
+		$options = self::option_diff($default_options, $options);
 
 		$res = update_site_option(self::OPTION_NAME, $options);
 
