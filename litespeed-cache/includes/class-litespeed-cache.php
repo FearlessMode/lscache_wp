@@ -170,8 +170,9 @@ class LiteSpeed_Cache extends LiteSpeed{
 		}
 
 		// load litespeed actions
-		$this->proceed_action();
-
+		if ( $action = LiteSpeed_Cache_Router::get_action() ) {
+			$this->proceed_action($action) ;
+		}
 	}
 
 	/**
@@ -179,11 +180,11 @@ class LiteSpeed_Cache extends LiteSpeed{
 	 * 
 	 * @since 1.1.0
 	 */
-	public function proceed_action()
+	public function proceed_action($action)
 	{
 		$msg = false;
 		// handle actions
-		switch ( LiteSpeed_Cache_Router::get_action() ) {
+		switch ( $action ) {
 			case LiteSpeed_Cache::ACTION_PURGE:
 				$this->cachectrl = LiteSpeed_Cache::CACHECTRL_PURGE;
 				break;
