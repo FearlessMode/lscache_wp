@@ -517,7 +517,8 @@ class LiteSpeed_Cache
 	 * @param string $value The post ID.
 	 * @param string $key Unused.
 	 */
-	public function purgeby_pid_cb($value, $key){
+	public function purgeby_pid_cb($value, $key)
+	{
 		$val = trim($value);
 		if (empty($val)) {
 			return;
@@ -543,7 +544,8 @@ class LiteSpeed_Cache
 	 * @param string $value The tag slug.
 	 * @param string $key Unused.
 	 */
-	public function purgeby_tag_cb($value, $key){
+	public function purgeby_tag_cb($value, $key)
+	{
 		$val = trim($value);
 		if (empty($val)) {
 			return;
@@ -571,7 +573,8 @@ class LiteSpeed_Cache
 	 * @param string $value A url to purge.
 	 * @param string $key Unused.
 	 */
-	public function purgeby_url_cb($value, $key){
+	public function purgeby_url_cb($value, $key)
+	{
 		$val = trim($value);
 		if (empty($val)) {
 			return;
@@ -602,7 +605,8 @@ class LiteSpeed_Cache
 	 * @since 1.0.7
 	 * @access public
 	 */
-	public function purge_list(){
+	public function purge_list()
+	{
 		if ( !isset($_POST[LiteSpeed_Cache_Admin_Display::PURGEBYOPT_SELECT])
 				|| !isset($_POST[LiteSpeed_Cache_Admin_Display::PURGEBYOPT_LIST]) ) {
 			LiteSpeed_Cache_Admin_Display::add_error(LiteSpeed_Cache_Admin_Error::E_PURGE_FORM);
@@ -648,7 +652,8 @@ class LiteSpeed_Cache
 	 * @access public
 	 * @param integer $id The post id to purge.
 	 */
-	public function purge_post( $id ){
+	public function purge_post( $id )
+	{
 		$post_id = intval($id);
 		// ignore the status we don't care
 		if ( ! in_array(get_post_status($post_id), array( 'publish', 'trash', 'private' )) ) {
@@ -679,7 +684,8 @@ class LiteSpeed_Cache
 	 * @access public
 	 * @param integer $id The post id to purge.
 	 */
-	public function purge_single_post($id){
+	public function purge_single_post($id)
+	{
 		$post_id = intval($id);
 		if ( ! in_array(get_post_status($post_id), array( 'publish', 'trash' )) ) {
 			return ;
@@ -694,7 +700,8 @@ class LiteSpeed_Cache
 	 * @since 1.0.9
 	 * @access public
 	 */
-	public function purge_feeds(){
+	public function purge_feeds()
+	{
 		if ($this->config->get_option(LiteSpeed_Cache_Config::OPID_FEED_TTL) > 0) {
 			$this->add_purge_tags(LiteSpeed_Cache_Tags::TYPE_FEED);
 		}
@@ -706,7 +713,8 @@ class LiteSpeed_Cache
 	 * @since 1.1.0
 	 * @param string $vary
 	 */
-	public function set_vary($vary){
+	public function set_vary($vary)
+	{
 		$this->current_vary = $vary;
 	}
 
@@ -716,7 +724,8 @@ class LiteSpeed_Cache
 	 * @since 1.1.0
 	 * @param string $vary
 	 */
-	public function get_vary(){
+	public function get_vary()
+	{
 		return $this->current_vary;
 	}
 
@@ -726,7 +735,8 @@ class LiteSpeed_Cache
 	 *
 	 * @return boolean True if logged in, false otherwise.
 	 */
-	private function check_user_logged_in(){
+	private function check_user_logged_in()
+	{
 		if (!is_user_logged_in()) {
 			// If the cookie is set, unset it.
 			if ((isset($_COOKIE)) && (isset($_COOKIE[$this->current_vary]))
@@ -756,7 +766,8 @@ class LiteSpeed_Cache
 	 * @param array $excludes_list List of excluded URIs
 	 * @return boolean True if excluded, false otherwise.
 	 */
-	private function is_uri_excluded($excludes_list){
+	private function is_uri_excluded($excludes_list)
+	{
 		$uri = esc_url($_SERVER["REQUEST_URI"]);
 		$uri_len = strlen( $uri ) ;
 		if (is_multisite()) {
@@ -797,7 +808,8 @@ class LiteSpeed_Cache
 	 * @access private
 	 * @return boolean True if cacheable, false otherwise.
 	 */
-	private function is_cacheable(){
+	private function is_cacheable()
+	{
 		// logged_in users already excluded, no hook added
 		$method = $_SERVER["REQUEST_METHOD"] ;
 		$conf = $this->config;
@@ -899,7 +911,8 @@ class LiteSpeed_Cache
 	 * @param $header, $code.
 	 * @return $eeror_status.
 	 */
-	public function check_error_codes($header, $code){
+	public function check_error_codes($header, $code)
+	{
 		$ttl_403 = $this->config->get_option(LiteSpeed_Cache_Config::OPID_403_TTL);
 		$ttl_500 = $this->config->get_option(LiteSpeed_Cache_Config::OPID_500_TTL);
 		if ($code == 403) {
@@ -929,7 +942,8 @@ class LiteSpeed_Cache
 	 * @param string $reason An explanation for why the page is not cacheable.
 	 * @return boolean Return false.
 	 */
-	private function no_cache_for( $reason ){
+	private function no_cache_for( $reason )
+	{
 		if (LiteSpeed_Cache_Log::get_enabled()) {
 			LiteSpeed_Cache_Log::push('Do not cache - ' . $reason);
 		}
@@ -942,7 +956,8 @@ class LiteSpeed_Cache
 	 * @since 1.0.0
 	 * @access public
 	 */
-	public function check_cacheable(){
+	public function check_cacheable()
+	{
 		if ((LiteSpeed_Cache_Tags::is_noncacheable() == false)
 			&& ($this->is_cacheable())) {
 			$this->cachectrl = self::CACHECTRL_CACHE;
@@ -956,7 +971,8 @@ class LiteSpeed_Cache
 	 * @since 1.0.0
 	 * @access public
 	 */
-	public function check_login_cacheable(){
+	public function check_login_cacheable()
+	{
 		if ($this->config->get_option(LiteSpeed_Cache_Config::OPID_CACHE_LOGIN) === false) {
 			return;
 		}
@@ -1000,7 +1016,8 @@ class LiteSpeed_Cache
 	 * @param boolean $stale Whether to add header as a stale header or not.
 	 * @return string The purge header
 	 */
-	private function build_purge_headers($stale){
+	private function build_purge_headers($stale)
+	{
 		$cache_purge_header = LiteSpeed_Cache_Tags::HEADER_PURGE . ': ';
 		$purge_tags = array_merge($this->pub_purge_tags,
 				LiteSpeed_Cache_Tags::get_purge_tags());
@@ -1069,7 +1086,8 @@ class LiteSpeed_Cache
 	 * @return mixed false if the user has the postpass cookie. Empty string
 	 * if the post is not password protected. Vary header otherwise.
 	 */
-	private function build_vary_headers(){
+	private function build_vary_headers()
+	{
 		global $post;
 		$tp_cookies = LiteSpeed_Cache_Tags::get_vary_cookies();
 		if (!empty($post->post_password)) {
@@ -1100,7 +1118,8 @@ class LiteSpeed_Cache
 	 * @return integer The integer corresponding to the selected
 	 * cache control value.
 	 */
-	private function validate_mode(&$showhdr, &$stale){
+	private function validate_mode(&$showhdr, &$stale)
+	{
 		$mode = $this->cachectrl;
 		if ($mode & self::CACHECTRL_SHOWHEADERS) {
 			$showhdr = true;
@@ -1218,7 +1237,8 @@ class LiteSpeed_Cache
 	 * @since 1.0.5
 	 * @access public
 	 */
-	public function send_headers(){
+	public function send_headers()
+	{
 		$cache_control_header = '';
 		$cache_tag_header = '';
 		$vary_headers = '';
@@ -1304,7 +1324,8 @@ class LiteSpeed_Cache
 	  * @param string $tag The tag to prefix.
 	  * @return string The amended tag.
 	  */
-	private function prefix_apply($tag){
+	private function prefix_apply($tag)
+	{
 		static $prefix = null;
 		if (is_null($prefix)) {
 			$prefix = $this->config->get_option(
@@ -1327,7 +1348,8 @@ class LiteSpeed_Cache
 	 * @access private
 	 * @return array The list of cache tags to set.
 	 */
-	private function get_cache_tags(){
+	private function get_cache_tags()
+	{
 		global $post ;
 		global $wp_query ;
 
@@ -1404,7 +1426,8 @@ class LiteSpeed_Cache
 	 * @param integer $post_id The id of the post about to be purged.
 	 * @return array The list of purge tags correlated with the post.
 	 */
-	private function get_purge_tags( $post_id ){
+	private function get_purge_tags( $post_id )
+	{
 		// If this is a valid post we want to purge the post, the home page and any associated tags & cats
 		// If not, purge everything on the site.
 
@@ -1520,7 +1543,8 @@ class LiteSpeed_Cache
 	 * @param string $uri The uri to get the hash of.
 	 * @return bool|string False on input error, hash otherwise.
 	 */
-	private static function get_uri_hash($uri){
+	private static function get_uri_hash($uri)
+	{
 		$no_qs = strtok($uri, '?');
 		if (empty($no_qs)) {
 			return false;
