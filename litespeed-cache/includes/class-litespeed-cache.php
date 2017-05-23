@@ -13,8 +13,9 @@
  * @subpackage LiteSpeed_Cache/includes
  * @author     LiteSpeed Technologies <info@litespeedtech.com>
  */
-class LiteSpeed_Cache extends LiteSpeed
+class LiteSpeed_Cache
 {
+	private static $_instance;
 	private $config;
 
 	const PLUGIN_NAME = 'litespeed-cache';
@@ -78,7 +79,7 @@ class LiteSpeed_Cache extends LiteSpeed
 	 *
 	 * @since    1.0.0
 	 */
-	protected function __construct()
+	private function __construct()
 	{
 		$this->config = LiteSpeed_Cache_Config::get_instance();
 
@@ -1528,4 +1529,20 @@ class LiteSpeed_Cache extends LiteSpeed
 		return md5($slashed);
 	}
 
+	/**
+	 * Get the current instance object.
+	 *
+	 * @since 1.1.0
+	 * @access public
+	 * @return Current class instance.
+	 */
+	public static function get_instance()
+	{
+		$cls = get_called_class();
+		if (!isset(self::$_instance)) {
+			self::$_instance = new $cls();
+		}
+
+		return self::$_instance;
+	}
 }
