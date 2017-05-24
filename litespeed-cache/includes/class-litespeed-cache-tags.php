@@ -40,12 +40,12 @@ class LiteSpeed_Cache_Tags
 	const HEADER_CACHE_VARY = 'X-LiteSpeed-Vary' ;
 	const HEADER_DEBUG = 'X-LiteSpeed-Debug' ;
 
-	static $thirdparty_purge_tags = array();
-	static $thirdparty_cache_tags = array();
-	static $thirdparty_vary_cookies = array(); // vary header only!
-	static $thirdparty_noncacheable = false;
-	static $thirdparty_mobile = false;
-	static $thirdparty_use_front_ttl = false;
+	private static $thirdparty_purge_tags = array();
+	private static $thirdparty_cache_tags = array();
+	private static $thirdparty_vary_cookies = array(); // vary header only!
+	private static $thirdparty_noncacheable = false;
+	private static $thirdparty_mobile = false;
+	private static $thirdparty_use_front_ttl = false;
 
 	/**
 	 * Gets cache tags that are already added for the current page.
