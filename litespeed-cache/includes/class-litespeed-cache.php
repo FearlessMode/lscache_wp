@@ -96,15 +96,13 @@ class LiteSpeed_Cache
 		}
 
 		// Register plugin activate/deactivate/uninstall hooks
-		$plugin_file = LSWCP_DIR . 'litespeed-cache.php';
-		register_activation_hook($plugin_file, 
-			array(LiteSpeed_Cache_Activation::get_instance(), 'register_activation' ));
-
-		register_deactivation_hook($plugin_file, 
-			array(LiteSpeed_Cache_Activation::get_instance(), 'register_deactivation' ));
-
-		register_uninstall_hook($plugin_file, 
-			'LiteSpeed_Cache_Activation::uninstall_litespeed_cache');
+		// NOTE: this can't be moved under after_setup_theme, otherwise activation will be bypassed somehow
+		if( is_admin() ) {
+			$plugin_file = LSWCP_DIR . 'litespeed-cache.php';
+			register_activation_hook($plugin_file, array('LiteSpeed_Cache_Activation', 'register_activation' ));
+			register_deactivation_hook($plugin_file, array('LiteSpeed_Cache_Activation', 'register_deactivation' ));
+			register_uninstall_hook($plugin_file, 'LiteSpeed_Cache_Activation::uninstall_litespeed_cache');
+		}
 
 		add_action('after_setup_theme', array( $this, 'init' )) ;
 	}
