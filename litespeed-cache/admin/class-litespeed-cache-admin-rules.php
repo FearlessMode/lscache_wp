@@ -167,8 +167,9 @@ class LiteSpeed_Cache_Admin_Rules
 	{
 		$this->theme_htaccess = LSWCP_CONTENT_DIR;
 
-		$install = ABSPATH;
-		$access = get_home_path();
+		$real = trailingslashit(realpath(ABSPATH));
+		$install = $real;
+		$access = trailingslashit(get_home_path());
 
 		if ($access === '/') {
 			// get home path failed. Trac ticket #37668
@@ -197,11 +198,11 @@ class LiteSpeed_Cache_Admin_Rules
 		}
 		else {
 			// they are equal - no need to find paths.
-			$this->frontend_htaccess = ABSPATH . '.htaccess';
-			$this->backend_htaccess = ABSPATH . '.htaccess';
+			$this->frontend_htaccess = $real . '.htaccess';
+			$this->backend_htaccess = $real . '.htaccess';
 			return;
 		}
-		$common_path = substr(ABSPATH, 0, -(strlen($install_part) + 1));
+		$common_path = substr($real, 0, -(strlen($install_part) + 1));
 
 		$partial_dir = false;
 
@@ -231,7 +232,7 @@ class LiteSpeed_Cache_Admin_Rules
 
 	/**
 	 * Get corresponding htaccess path
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  string $kind Frontend or backend
 	 * @return string       Path
@@ -404,7 +405,7 @@ class LiteSpeed_Cache_Admin_Rules
 
 	/**
 	 * Get mobile view rule from htaccess file
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @return string Mobile Agents value
 	 */
@@ -513,7 +514,7 @@ class LiteSpeed_Cache_Admin_Rules
 			$list = $input[$id];
 			if ( empty($list) || $this->check_rewrite($list) === false ) {
 				$errors[] = LiteSpeed_Cache_Admin_Display::get_error(
-					LiteSpeed_Cache_Admin_Error::E_SETTING_REWRITE, 
+					LiteSpeed_Cache_Admin_Error::E_SETTING_REWRITE,
 					array($id, empty($list) ? 'EMPTY' : esc_html($list))
 				);
 				$has_error = true;
