@@ -39,7 +39,7 @@ class LiteSpeed_Cache_Admin_Display
 	private function __construct()
 	{
 		// load assets
-		if(!empty($_GET['page']) && 
+		if(!empty($_GET['page']) &&
 				(substr($_GET['page'], 0, 8) == 'lscache-' || $_GET['page'] == 'litespeedcache')){
 			add_action('admin_enqueue_scripts', array($this, 'load_assets'));
 		}
@@ -98,7 +98,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Output litespeed form info
-	 * 
+	 *
 	 * @param  string $action
 	 */
 	public function form_action($action)
@@ -375,8 +375,10 @@ class LiteSpeed_Cache_Admin_Display
 		$screen->add_help_tab(array(
 			'id'      => 'lsc-overview',
 			'title'   => __('Overview', 'litespeed-cache'),
-			'content' => '<p>' . __('LiteSpeed Cache is a page cache built into LiteSpeed Web Server.', 'litespeed-cache') . ' ' . __('This plugin communicates with LiteSpeed Web Server to let it know which pages are cache-able and when to purge them.', 'litespeed-cache') . '</p><p>'
-				. __('A LiteSpeed server (OLS, LSWS, WebADC) and its LSCache module must be installed and enabled.', 'litespeed-cache')
+			'content' => '<p>'
+				. __('LiteSpeed Cache is a page cache built into LiteSpeed Web Server.', 'litespeed-cache') . ' '
+				. __('This plugin communicates with LiteSpeed Web Server to let it know which pages are cacheable and when to purge them.', 'litespeed-cache')
+				. '</p><p>' . __('A LiteSpeed server (OLS, LSWS, WebADC) and its LSCache module must be installed and enabled.', 'litespeed-cache')
 				. '</p>',
 		));
 
@@ -422,7 +424,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Get the error description
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  init $err_code
 	 * @param  mixed $args
@@ -493,7 +495,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Display notices and errors in dashboard
-	 * 
+	 *
 	 * @since 1.1.0
 	 */
 	public function display_messages(){
@@ -509,7 +511,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Check if has new messages
-	 * 
+	 *
 	 * @since 1.1.0
 	 */
 	public function check_messages(){
@@ -636,7 +638,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Build a textarea
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  string $id
 	 */
@@ -653,7 +655,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Build a text input field
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  string $id
 	 * @param  string $style Appending styles
@@ -675,7 +677,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Build a switch div html snippet
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  string $id
 	 */
@@ -691,7 +693,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Build a checkbox html snippet
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  string $id
 	 * @param  string $title
@@ -710,7 +712,7 @@ class LiteSpeed_Cache_Admin_Display
 
 	/**
 	 * Build a radio input html codes and output
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @param  string $id
 	 * @param  string $val     Default value of this input
