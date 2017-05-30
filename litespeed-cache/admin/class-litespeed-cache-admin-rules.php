@@ -778,7 +778,7 @@ class LiteSpeed_Cache_Admin_Rules
 		}
 
 		$buf = preg_replace($pattern, '', $content);
-		$buf = preg_replace("|<IfModule LiteSpeed>\n*</IfModule>|isU", '', $buf);
+		$buf = preg_replace("|<IfModule LiteSpeed>\s*</IfModule>|isU", '', $buf);
 
 		$this->htaccess_save($buf);
 
