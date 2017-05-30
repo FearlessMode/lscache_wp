@@ -55,7 +55,7 @@ define('LSWCP_BASENAME', plugin_basename(LSWCP_DIR . 'litespeed-cache.php'));//L
 // Auto register LiteSpeed classes
 require_once LSWCP_DIR . 'includes/litespeed.autoload.php';
 
-if ( defined( 'WP_CLI' ) && WP_CLI ) {// todo: where used this
+if ( LiteSpeed_Cache_Router::is_cli() ) {
 	WP_CLI::add_command( 'lscache-admin', 'LiteSpeed_Cache_Cli_Admin' );
 	WP_CLI::add_command( 'lscache-purge', 'LiteSpeed_Cache_Cli_Purge' );
 }
