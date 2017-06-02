@@ -10,11 +10,13 @@ $known_compat = array(
 	'Wordfence Security',
 	'NextGen Gallery',
 	'Aelia CurrencySwitcher',
+	'Fast Velocity Minify, thanks to Raul Peixoto',
 	'Autoptimize',
 	'Better WP Minify',
 	'WP Touch',
 	'Theme My Login',
 	'wpForo',
+	'WPLister',
 );
 
 $known_uncompat = array();
