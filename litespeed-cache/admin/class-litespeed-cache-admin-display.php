@@ -604,7 +604,7 @@ class LiteSpeed_Cache_Admin_Display
 	 * Outputs the html for the info page.
 	 *
 	 * This page includes three tabs:
-	 * - configurations
+	 * - configuration
 	 * - third party plugin compatibilities
 	 * - common rewrite rules.
 	 *
