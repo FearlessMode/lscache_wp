@@ -406,6 +406,10 @@ class LiteSpeed_Cache
 	public function purge_all()
 	{
 		$this->add_purge_tags('*');
+		// check if need to reset crawler
+		if ( $this->config(LiteSpeed_Cache_Config::CRWL_CRON_ACTIVE) ) {
+			LiteSpeed_Cache_Crawler::get_instance()->reset_pos() ;
+		}
 	}
 
 	/**
@@ -653,7 +657,7 @@ class LiteSpeed_Cache
 			return;
 		}
 		if ( in_array('*', $purge_tags) ) {
-			$this->add_purge_tags('*');
+			$this->purge_all();
 		}
 		else {
 			$this->add_purge_tags($purge_tags);
