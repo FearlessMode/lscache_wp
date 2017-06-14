@@ -82,11 +82,11 @@ class LiteSpeed_Cache
 		// Check if debug is on
 		if ($this->config(LiteSpeed_Cache_Config::OPID_ENABLED)) {
 			$should_debug = intval($this->config(LiteSpeed_Cache_Config::OPID_DEBUG));
-            if (($should_debug == LiteSpeed_Cache_Config::VAL_ON) 
+            if (($should_debug == LiteSpeed_Cache_Config::VAL_ON)
                     || ($should_debug == LiteSpeed_Cache_Config::VAL_NOTSET && LiteSpeed_Cache_Router::is_admin_ip())) {
                 LiteSpeed_Cache_Log::set_enabled();
             }
-            
+
             // Load third party detection if lscache enabled.
             include_once LSWCP_DIR . 'thirdparty/litespeed-cache-thirdparty-registry.php';
 		}
@@ -145,7 +145,7 @@ class LiteSpeed_Cache
 		$this->load_public_actions() ;
 
 		// load cron task for crawler
-		if ( $this->config(LiteSpeed_Cache_Config::CRWL_CRON_ACTIVE) ) {
+		if ( $this->config(LiteSpeed_Cache_Config::CRWL_CRON_ACTIVE) && LiteSpeed_Cache_Router::can_crawl() ) {
 			// keep cron intval filter
 			$this->config->cron_schedule() ;
 
@@ -171,7 +171,7 @@ class LiteSpeed_Cache
 
 	/**
 	 * Run frontend actions
-	 * 
+	 *
 	 * @since 1.1.0
 	 * @access public
 	 */
