@@ -71,7 +71,7 @@ class LiteSpeed_Cache_Admin
 		// NOTE: cli will call `validate_plugin_settings` manually. Cron activation doesn't need to validate
 		global $pagenow ;
 		if ( !is_network_admin() && $pagenow === 'options.php' ) {
-			register_setting(LiteSpeed_Cache_Config::OPTION_NAME, LiteSpeed_Cache_Config::OPTION_NAME, 
+			register_setting(LiteSpeed_Cache_Config::OPTION_NAME, LiteSpeed_Cache_Config::OPTION_NAME,
 				array(LiteSpeed_Cache_Admin_Settings::get_instance(), 'validate_plugin_settings')
 			);
 		}
@@ -134,14 +134,14 @@ class LiteSpeed_Cache_Admin
 			return;
 		}
 
-		if (get_transient(LiteSpeed_Cache::WHM_TRANSIENT) == LiteSpeed_Cache::WHM_TRANSIENT_VAL) {
+		if (LiteSpeed_Cache_Router::has_whm_msg()) {
 			$this->display->show_display_installed();
 		}
 	}
 
 	/**
 	 * Run litespeed admin actions
-	 * 
+	 *
 	 * @since 1.1.0
 	 */
 	public function proceed_admin_action()
