@@ -123,7 +123,7 @@ class LiteSpeed_Cache_ThirdParty_WooCommerce
 				return false;
 			}
 			elseif ((version_compare($woocom->version, '2.1.0', '>='))
-				&& ((is_null($woocom->cart))
+				&& (is_cart() || (is_null($woocom->cart))
 					|| ($woocom->cart->get_cart_contents_count() !== 0)
 					|| (wc_notice_count() > 0))
 			) {
